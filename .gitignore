@@ -2,3 +2,4 @@ hearthstone/
 login/login
 stubs/*.so
 token/Token.exe
+venv

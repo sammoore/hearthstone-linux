@@ -139,11 +139,18 @@ download_unity() {
     mkdir -p tmp
     pushd tmp
 
-    info "Fetching Unity archive ..."
-    curl -s https://unity.com/releases/editor/archive -o archive || (error "Could not fetch Unity archive" && exit 1)
+    #info "Fetching Unity archive ..."
+    #curl -s https://unity.com/releases/editor/archive -o archive || (error "Could not fetch Unity archive" && exit 1)
 
-    EXP="(?<=$UNITY_VER/)[^\\\]*"
-    HASH=`grep -oP $EXP archive` || (error "Unity version not found in archive" && exit 1)
+    #EXP="(?<=$UNITY_VER/)[^\\\]*"
+    #HASH=`grep -oP $EXP archive` || (error "Unity version not found in archive" && exit 1)
+
+    if [ $UNITY_VER != "2021.3.40f1" ]; then
+        echo "Unity version updated, and the download URL detector is broken. Find the new HASH and update craft.sh."
+        exit 1
+    fi
+
+    HASH="6fcab7dbbbc1"
     URL="https://download.unity3d.com/download_unity/${HASH%%$'\n'*}/LinuxEditorInstaller/Unity.tar.xz"
 
     info "Downloading Unity from $URL ..."
